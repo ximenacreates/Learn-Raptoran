@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn Raptoran</title>
+<style>
+  body { font-family: 'Poppins', sans-serif; background: #f7f6f9; color: #222; text-align: center; padding: 2em; }
+  .card { background: white; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 2em; display: inline-block; }
+  input { padding: 10px; font-size: 1em; width: 80%; margin-top: 10px; }
+  button { margin-top: 10px; padding: 10px 20px; border: none; background: #6a5acd; color: white; border-radius: 10px; cursor: pointer; }
+  #feedback { margin-top: 1em; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>Learn Raptoran 🌿</h1>
+<div class="card">
+  <p id="question">Loading...</p>
+  <input type="text" id="answer" placeholder="Type your answer">
+  <br>
+  <button onclick="checkAnswer()">Check</button>
+  <p id="feedback"></p>
+</div>
+
+<script>
+const lessons = [
+  { raptoran: "Í en Élean", english: "I am Elean" },
+  { raptoran: "Raptoran et sépan", english: "The raptor sleeps" },
+  { raptoran: "Gáwan en árun", english: "The sea is sacred" },
+  { raptoran: "Ra Élean kanár?", english: "Does Elean read?" },
+];
+
+let index = 0;
+
+function loadQuestion() {
+  document.getElementById("question").innerText = "Translate: " + lessons[index].raptoran;
+  document.getElementById("answer").value = "";
+  document.getElementById("feedback").innerText = "";
+}
+
+function checkAnswer() {
+  const user = document.getElementById("answer").value.trim().toLowerCase();
+  const correct = lessons[index].english.toLowerCase();
+  const feedback = document.getElementById("feedback");
+
+  if (user === correct) {
+    feedback.innerText = "✅ Correct!";
+  } else {
+    feedback.innerText = "❌ Incorrect. Answer: " + lessons[index].english;
+  }
+
+  index = (index + 1) % lessons.length;
+  setTimeout(loadQuestion, 2000);
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
